@@ -1,12 +1,16 @@
 class PointPlan:
-    def __init__(self, abscisse=None, ordonnee=None):
-        if(abscisse is None):
+    def __init__(self, abscisse:float=None, ordonnee:float=None):
+        if abscisse is None:
             raise RuntimeError('abscisse doit etre renseignee')
-        if(ordonnee is None):
+        if ordonnee is None:
             raise RuntimeError('ordonnee doit etre renseignee')
         self._abscisse = abscisse
         self._ordonnee = ordonnee
-    
+
+    @classmethod
+    def from_point(cls, original_point:'PointPlan') -> 'PointPlan':
+        return cls(original_point.abscisse, original_point.ordonnee)
+
     @property
     def abscisse(self) -> float:
         return self._abscisse
