@@ -1,9 +1,11 @@
 class PointPlan:
     def __init__(self, abscisse:float=None, ordonnee:float=None):
+        """
         if abscisse is None:
             raise RuntimeError('abscisse doit etre renseignee')
         if ordonnee is None:
             raise RuntimeError('ordonnee doit etre renseignee')
+        """
         self._abscisse = abscisse
         self._ordonnee = ordonnee
 
@@ -28,5 +30,10 @@ class PointPlan:
         self._ordonnee = value
 
     def __str__(self) -> str:
-        return ("\n abscisse : " + str(self._abscisse) + "\n ordonnee : " + str(self._ordonnee))
-    
+        return f"\nabscisse = {self._abscisse}, ordonnee={self._ordonnee}"    
+
+    def translater(self, dx = 0, dy = 0):
+        if self._abscisse is not None:
+            self._abscisse += dx
+        if self._ordonnee is not None:
+            self._ordonnee += dy

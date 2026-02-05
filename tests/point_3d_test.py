@@ -1,48 +1,115 @@
-from point_plan.point_3d import Point3D
+
+# test_point_plan.py
 import pytest
 
-class TestPoint3D:
-    def test_should_return_abscisse_when_initialisation_valide(self):
-        point = Point3D(3.0, 4.0, 5.0)
-        assert point.abscisse == 3.0
+from point_3d import Point3D
 
-    def test_should_return_ordonnee_when_initialisation_valide(self):
-        point = Point3D(3.0, 4.0, 5.0)
-        assert point.ordonnee == 4.0
+def test_should_init_azimut_to_none_when_no_args_given():
+    # Arrange
+    point = Point3D()
 
-    def test_should_return_azimut_when_initialisation_valide(self):
-        point = Point3D(3.0, 4.0, 5.0)
-        assert point.azimut == 5.0
+    # Act
+    result = point.azimut
 
-    def test_should_set_azimut_when_setter_called(self):
-        point = Point3D(3.0, 4.0, 5.0)
-        point.azimut = 7.0
-        assert point.azimut == 7.0
+    # Assert (1 assertion métier)
+    assert result is None
 
-    def test_should_raise_runtime_error_when_azimut_is_none(self):
-        with pytest.raises(RuntimeError) as excinfo:
-            Point3D(3.0, 4.0, None)
-        assert str(excinfo.value) == 'azimut doit etre renseignee'
 
-    def test_should_return_string_representation_when_str_called(self):
-        point = Point3D(3.0, 4.0, 5.0)
-        expected_str = "\n abscisse : 3.0\n ordonnee : 4.0\n azimut : 5.0"
-        assert str(point) == expected_str
+def test_should_init_azimut_when_args_given():
+    # Arrange
+    azimut_expected = 30
 
-    def test_should_create_point_from_another_point_abscisse(self):
-        original_point = Point3D(7.0, 8.0, 9.0)
-        new_point = Point3D.from_point(original_point)
-        assert new_point.abscisse == 7.0
+    # Act
+    point = Point3D(1, 2, azimut_expected)
 
-    def test_should_create_point_from_another_point_ordonnee(self):
-        original_point = Point3D(7.0, 8.0, 9.0)
-        new_point = Point3D.from_point(original_point)
-        assert new_point._ordonnee == 8.0
+    # Assert (1 assertion métier)
+    assert point.azimut == azimut_expected
 
-    def test_should_create_point_from_another_point_azimut(self):
-        original_point = Point3D(7.0, 8.0, 9.0)
-        new_point = Point3D.from_point(original_point)
-        assert new_point._azimut == 9.0
-    
 
-    
+def test_should_init_abscisse_when_args_given():
+    # Arrange
+    abscisse_expected = 10
+
+    # Act
+    point = Point3D(abscisse_expected, 20, 30)
+
+    # Assert (1 assertion métier)
+    assert point.abscisse == abscisse_expected
+
+
+def test_should_init_ordonnee_when_args_given():
+    # Arrange
+    ordonnee_expected = 20
+
+    # Act
+    point = Point3D(10, ordonnee_expected, 30)
+
+    # Assert (1 assertion métier)
+    assert point.ordonnee == ordonnee_expected
+
+
+def test_should_update_azimut_when_setter_called():
+    # Arrange
+    point = Point3D(1, 2, 3)
+    new_azimut = 99
+
+    # Act
+    point.azimut = new_azimut
+
+    # Assert (1 assertion métier)
+    assert point.azimut == new_azimut
+
+
+def test_should_copy_abscisse_when_from_point_called():
+    # Arrange
+    original = Point3D(5, 8, 12)
+
+    # Act
+    copy = Point3D.from_point(original)
+
+    # Assert (1 assertion métier)
+    assert copy.abscisse == original.abscisse
+
+
+def test_should_copy_ordonnee_when_from_point_called():
+    # Arrange
+    original = Point3D(5, 8, 12)
+
+    # Act
+    copy = Point3D.from_point(original)
+
+    # Assert (1 assertion métier)
+    assert copy.ordonnee == original.ordonnee
+
+
+def test_should_copy_azimut_when_from_point_called():
+    # Arrange
+    original = Point3D(5, 8, 12)
+
+    # Act
+    copy = Point3D.from_point(original)
+
+    # Assert (1 assertion métier)
+    assert copy.azimut == original.azimut
+
+
+def test_should_create_distinct_instance_when_from_point_called():
+    # Arrange
+    original = Point3D(5, 8, 12)
+
+    # Act
+    copy = Point3D.from_point(original)
+
+    # Assert (1 assertion métier)
+    assert copy is not original
+
+
+def test_should_format_string_when_str_called():
+    # Arrange
+    point = Point3D(3, 4, 7)
+
+    # Act
+    result = str(point)
+
+    # Assert (1 assertion métier)
+    assert result == "Point3D :\nabscisse = 3, ordonnee=4azimut=7"

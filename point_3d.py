@@ -1,10 +1,8 @@
-from point_plan.point_plan import PointPlan
+from point_plan import PointPlan
 
 class Point3D(PointPlan):
-    def __init__(self, abscisse:float=None, ordonnee:float=None, azimut:float=None):
+    def __init__(self, abscisse:float = None, ordonnee: float = None, azimut: float = None):
         super().__init__(abscisse, ordonnee)
-        if azimut is None:
-            raise RuntimeError('azimut doit etre renseignee')
         self._azimut = azimut
     
     @classmethod
@@ -20,5 +18,11 @@ class Point3D(PointPlan):
         self._azimut = value
     
     def __str__(self) -> str:
-        return super().__str__() + ("\n azimut : " + str(self._azimut))
+        return "Point3D :" + super().__str__() + "azimut=" + str(self._azimut)
+    
+    def translater(self, dx = 0, dy = 0 , dz = 0):
+        super().translater(dx, dy)
+        if dz is not None :
+            self._azimut += dz 
+
 
